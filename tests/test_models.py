@@ -2,30 +2,20 @@ from datetime import datetime, timezone
 from models import User, Event, RSVP
 
 def test_check_user_password():
+    """Prüft, dass Passwörter gehasht gespeichert und korrekt validiert werden."""
     # arrange: create user
     user = User(username="Eric")
     user.set_password("securepassword123")
 
     # act & : check password
     assert user.password_hash != "securepassword123"
+    assert user.password_hash is not None
     assert user.check_password("securepassword123") is True
     assert user.check_password("wrongpassword") is False
 
 
 def test_user_to_dict_returns_expected_fields():
-    user = User(username="eric", is_admin=True)
-    user.id = 1
-    user.created_at = datetime(2026, 2, 18, 12, 0, tzinfo=timezone.utc)
-
-    data = user.to_dict()
-
-    assert data["id"] == 1
-    assert data["username"] == "eric"
-    assert data["is_admin"] is True
-    assert data["created_at"] == user.created_at.isoformat()
-
-
-def test_user_to_dict_returns_expected_fields():
+    """Prüft, dass User-Daten vollständig und im erwarteten Format serialisiert werden."""
     user = User(username="eric", is_admin=True)
     user.id = 1
     user.created_at = datetime(2026, 2, 18, 12, 0, tzinfo=timezone.utc)
@@ -39,6 +29,7 @@ def test_user_to_dict_returns_expected_fields():
 
 
 def test_event_to_dict_includes_attendees():
+    """Prüft, dass Event-Serialisierung RSVP-Anzahl und Teilnehmerliste enthält."""
     event = Event(
         title="Python Meetup",
         date=datetime(2026, 3, 10, 18, 0),
@@ -56,6 +47,7 @@ def test_event_to_dict_includes_attendees():
 
 
 def test_rsvp_to_dict_returns_expected_fields():
+    """Prüft, dass RSVP-Daten korrekt und vollständig serialisiert werden."""
     rsvp = RSVP(event_id=10, user_id=2, attending=True)
     rsvp.id = 99
     rsvp.created_at = datetime(2026, 2, 18, 14, 0, tzinfo=timezone.utc)
