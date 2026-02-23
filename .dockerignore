@@ -1,0 +1,40 @@
+# Git
+.git
+.gitignore
+
+# Python cache / bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtuelle Umgebungen
+.venv/
+venv/
+env/
+
+# Test / Coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+/tests
+
+# Tooling caches
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# IDE / OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs / lokale Dateien
+*.log
+*.sqlite3
+
+# Docker
+Dockerfile*
+.dockerignore
+
+README.md
