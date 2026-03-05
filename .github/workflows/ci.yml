@@ -24,3 +24,15 @@ jobs:
         - name: Run Container
           run: |
             docker run -d -p 5001:5001 --name events-api events-api:latest
+            for i in {1..20}; do
+              if curl -fsS http://localhost:5001/health; then
+                echo "API is up!"
+                exit 0
+              fi
+              echo "Waiting for API to be up...($i)"
+              sleep 5
+            done
+
+            echo "API did not start in time."
+            docker logs events-api-container || true
+            exit 1
