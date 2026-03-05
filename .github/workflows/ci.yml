@@ -36,3 +36,16 @@ jobs:
             echo "API did not start in time."
             docker logs events-api-container || true
             exit 1
+        
+        - name: Setup Python
+          uses: actions/setup-python@v5
+          with:
+            python-version: '3.14'
+        
+        - name: Install dependencies
+          run: |
+            pip install -r requirements.txt
+        
+        - name: run tests
+          run: |
+            python -v 
