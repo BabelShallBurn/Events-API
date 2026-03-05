@@ -25,7 +25,7 @@ jobs:
           run: |
             docker run -d -p 5001:5001 --name events-api events-api:latest
             for i in {1..20}; do
-              if curl -fsS http://localhost:5001/health; then
+              if curl -fsS http://localhost:5001/api/health; then
                 echo "API is up!"
                 exit 0
               fi
