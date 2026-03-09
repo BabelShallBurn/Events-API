@@ -35,7 +35,7 @@ jobs:
             done
 
             echo "API did not start in time."
-            docker logs events-api-container || true
+            docker logs events-api || true
             exit 1
         
         - name: Setup Python
