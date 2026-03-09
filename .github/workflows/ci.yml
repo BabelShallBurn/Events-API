@@ -78,3 +78,17 @@ jobs:
         - name: Trigger Render Deploy
           run: |
             curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
+        
+        - name: Smoke Test Production API
+          run: |
+            for i in {1..20}; do
+              if curl -fsS ${{ secrets.RENDER_BASE_URL }}/api/health; then
+                echo "Production API is up!"
+                exit 0
+              fi
+              echo "Waiting for Production API to be up...($i)"
+              sleep 5
+            done
+
+            echo "Production API did not start in time."
+            exit 1
